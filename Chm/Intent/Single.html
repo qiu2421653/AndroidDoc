@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+SINGLE_TOP
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>发送短信</B></FONT>&nbsp;</TD>
+</TABLE>
+<p>
+<!--SINGLE_TOP启动 Intent传值--><br/>
+Intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+<br/><br/>
+
+Activity中接受<br/>
+@Override
+protected void onNewIntent(Intent intent) {
+	super.onNewIntent(intent);
+	//设置singTask的intent
+	setIntent(intent);
+	TempMemory memory = getIntent().getParcelableExtra("tempMemory");
+	if (memory != null) {
+		//有记忆了
+		showSuccess();
+		//共享出去
+		getIntent().putExtras(intent);
+	}
+}
+<br/><br/>
+
+Fragment中取值<br/>
+@Override
+public void onResume() {
+	super.onResume();
+	//获取
+	TempMemory memory = getActivity().getIntent().getParcelableExtra("tempMemory");
+	if (!isFirst)
+		((MemoryDayPresenter) mPresenter).addMemoryFromTemp(memory);
+	getActivity().getIntent().removeExtra("tempMemory");
+}
+</p>
+</BODY>
+</HTML>

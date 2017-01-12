@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+相关FLAG
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>相关FLAG</B></FONT>&nbsp;</TD>
+</TABLE>
+<p>
+intent 跳转到指定页面关闭其他(已存在Task中)<br>
+startAnimActivity(new Intent(mContext,MainActivity.class)
+								.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP| Intent.FLAG_ACTIVITY_CLEAR_TOP));
+			<br><hr>				
+intent 跳转到指定页面关闭其他(不存在Task中)<br>
+Intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+</p>
+</BODY>
+</HTML>

@@ -1,0 +1,21 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+刷新图库
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>刷新图库</B></FONT>&nbsp;</TD>
+</TABLE>
+<p>
+<!--刷新图库->保存图片到本地库后刷新一下-->
+Uri localUri = Uri.fromFile(mediaFile);
+Intent localIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, localUri);
+context.sendBroadcast(localIntent);
+</p>
+</BODY>
+</HTML>

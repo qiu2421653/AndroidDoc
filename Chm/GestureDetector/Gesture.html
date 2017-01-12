@@ -1,0 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+手势识别
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>GestureDetector手势识别</B></FONT>&nbsp;</TD>
+</TABLE>
+<p>
+<!--GestureDetector手势识别-->
+我们可以处理一些touch事件，但是这个方法太过简单，
+如果需要处理一些复杂的手势，用这个接口就会很麻烦（因为我们要自己根据用户触摸的轨迹去判断是什么手势）。
+Android sdk给我们提供了GestureDetector（Gesture：手势Detector：识别）类，
+通过这个类我们可以识别很多的手势，主要是通过他的onTouchEvent(event)方法完成了不同手势的识别
+接口：OnGestureListener，OnDoubleTapListener
+内部类:SimpleOnGestureListener
+</p>
+</BODY>
+</HTML>
