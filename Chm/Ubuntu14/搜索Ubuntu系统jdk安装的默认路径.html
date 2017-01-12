@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+详细位置搜索ubuntu系统jdk安装的默认路径。
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>搜索ubuntu系统jdk</B></FONT>&nbsp;</TD>
+</TABLE>
+<p>
+详细位置搜索ubuntu系统jdk安装的默认路径。<br/>
+或者按照如下方法，手动查找（机器不同可能结果也不一样，但思路都是一样的）：
+which javac
+返回/usr/bin/javac
+file /usr/bin/javac
+返回/usr/bin/javac: symbolic link to `/etc/alternatives/javac'
+然后file /etc/alternatives/javac
+返回/etc/alternatives/javac: symbolic link to `/usr/lib/jvm/java-6-sun/bin/javac'
+然后file /usr/lib/jvm/java-6-sun/bin/javac
+返回/usr/lib/jvm/java-6-sun/bin/javac: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.2.5, not stripped
+到此为止，说明路径是/usr/lib/jvm/java-6-sun/bin/，在Eclipse里面设置即可。
+</p>
+</BODY>
+</HTML>

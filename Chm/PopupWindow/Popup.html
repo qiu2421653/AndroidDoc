@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+Popup显示
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>PopupWindow显示</B></FONT>&nbsp;</TD>
+</TABLE>
+<p>
+		//方式1  <br/>
+ 		View popuView = LayoutInflater.from(getContext()).inflate(R.layout.item_popucircle, null);
+		int width = DeviceUtils.dip2px(getContext(), 105);
+		// 创建popupwindow
+		PopupWindow popup = new PopupWindow(popuView, width, ViewGroup.LayoutParams.WRAP_CONTENT);
+		// 不设置的话窗体外不能取消
+		popup.setBackgroundDrawable(new BitmapDrawable());
+		popup.setOutsideTouchable(true);
+		popup.setFocusable(true);
+		// 设置popwindow出现和消失动画
+		popup.setAnimationStyle(R.style.PopMenuAnimation);
+		popup.showAsDropDown(ivMainRight);
+		<br/><br/>
+
+		//方式2  <br/>
+		//取得状态栏高度
+		Rect frame = new Rect();
+		getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+		int xOffset = DisplayUtils.dip2px(mContext, 10f); //
+		int yOffset = frame.top + ivMainRight.getHeight() - 10;//
+		// 外部布局
+		View parentView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_memory, null);
+		// 包含popupwindow布局
+		View popuView = LayoutInflater.from(getContext()).inflate(R.layout.item_popucircle, null);
+		// 创建popupwindow
+		PopupWindow popu = new PopupWindow(popuView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		popu.setBackgroundDrawable(new BitmapDrawable());// 不设置的话窗体外不能取消
+		popu.setOutsideTouchable(true);
+		popu.setFocusable(true);
+		popu.setAnimationStyle(R.style.PopMenuAnimation);// 设置popwindow出现和消失动画
+		// 设置显示位置
+		popu.showAtLocation(parentView, Gravity.RIGHT | Gravity.TOP, xOffset, yOffset);
+		<br/><br/>
+		
+		
+		<style name="PopMenuAnimation">
+        <item name="android:windowEnterAnimation">@anim/popshow</item>
+        <item name="android:windowExitAnimation">@anim/pophide</item>
+		<br/><br/>
+		
+		popshow<br/>
+		<?xml version="1.0" encoding="utf-8"?>
+		<set xmlns:android="http://schemas.android.com/apk/res/android">
+			 <alpha
+				android:duration="200"
+				android:fromAlpha="0.0"
+				android:toAlpha="1.0"/>
+		</set>
+		<br/><br/>
+			
+		pophide<br/>
+		<?xml version="1.0" encoding="utf-8"?>
+		<set xmlns:android="http://schemas.android.com/apk/res/android">
+			<alpha
+				android:duration="200"
+				android:fromAlpha="1.0"
+				android:toAlpha="0.0"/>
+		</set>
+		
+		
+		
+    </style>
+</p>
+</BODY>
+</HTML>

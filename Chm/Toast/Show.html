@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+解决Toast一直显示
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>解决Toast一直显示</B></FONT>&nbsp;</TD>
+</TABLE>
+<p>
+Toast toast;
+private void showToast(String text) {
+	if (mToast == null) {
+		mToast = Toast.makeText(mContext, text, Toast.LENGTH_SHORT);
+	} else {
+		mToast.setText(text);
+		mToast.setDuration(Toast.LENGTH_SHORT);
+	}
+	mToast.show();
+}
+private void cancelToast() {
+	if (mToast != null) {
+		mToast.cancel();
+	}
+}
+@Override
+public void onBackPressed() {
+	cancelToast();
+	super.onBackPressed();
+}
+</p>
+</BODY>
+</HTML>

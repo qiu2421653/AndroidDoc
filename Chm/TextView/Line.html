@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+TextView加下划线
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>TextView加下划线的几种方式</B></FONT>&nbsp;</TD>
+</TABLE>
+<p>
+如果是在资源文件里：<br>
+ <resources>
+    <string name="hello"><u>phone:0123456</u></string>
+</resources>
+<br>如果是代码里：<br>
+TextView textView = (TextView)findViewById(R.id.tv_test);
+textView.setText(Html.fromHtml("<u>"+"0123456"+"</u>"));
+<br>代码也可以这样：<br>
+tvTest.getPaint().setFlags(Paint. UNDERLINE_TEXT_FLAG ); //下划线
+tvTest.getPaint().setAntiAlias(true);//抗锯齿
+</p>
+</BODY>
+</HTML>

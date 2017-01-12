@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+管理
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>数据库管理</B></FONT>&nbsp;</TD>
+</TABLE>
+<p>
+/**
+ * 数据库管理
+ */
+public class DBManager {
+	private static final String TAG = "DBManager";
+	private static final int BUFFER_SIZE = 1024;
+	private String DB_PATH;
+	private Context mContext;
+
+	private static DBManager sInstance;
+
+	// 创建
+	public static DBManager getInstance(Context context) {
+		if (sInstance == null) {
+			synchronized (ConfigDao.class) {
+				if (sInstance == null) {
+					sInstance = new DBManager(context);
+				}
+			}
+		}
+		return sInstance;
+	}
+
+	public DBManager(Context context) {
+		this.mContext = context;
+		DB_PATH = File.separator + "data"
+				+ Environment.getDataDirectory().getAbsolutePath() + File.separator
+				+ context.getPackageName() + File.separator + "databases" + File.separator;
+		CLog.e(TAG,DB_PATH);
+	}
+
+	/**
+	 * 将db文件拷贝到本地
+	 */
+	public void copyDBFile(String dbName) {
+		File dir = new File(DB_PATH);
+		if (dir.exists()) {
+			CLog.e(TAG, "已存在的db---------->");
+			return;
+		}
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		File dbFile = new File(DB_PATH + dbName);
+		if (!dbFile.exists()) {
+			InputStream is;
+			OutputStream os;
+			try {
+				is = mContext.getResources().getAssets().open(dbName);
+				os = new FileOutputStream(dbFile);
+				byte[] buffer = new byte[BUFFER_SIZE];
+				int length;
+				while ((length = is.read(buffer, 0, buffer.length)) > 0) {
+					os.write(buffer, 0, length);
+				}
+				os.flush();
+				os.close();
+				is.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
+</p>
+</BODY>
+</HTML>

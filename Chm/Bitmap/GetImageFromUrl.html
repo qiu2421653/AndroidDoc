@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+Url获取图片
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>通过Url获取对应的图片</B></FONT>&nbsp;</TD>
+</TABLE>
+<p>
+/**
+ * 根据url连接取网络抓去图片返回
+ *
+ * @param url
+ * @return url对应的图片
+ */
+ <br>
+private Bitmap getImageFromNet(String url) {
+	HttpURLConnection conn = null;
+	try {
+		URL mURL = new URL(url); // 创建一个url对象
+		// 得到http的连接对象
+		conn = (HttpURLConnection) mURL.openConnection();
+		conn.setRequestMethod("GET"); // 设置请求方法为Get
+		conn.setConnectTimeout(10000); // 设置连接服务器的超时时间, 如果超过10秒钟, 没有连接成功,
+		conn.setReadTimeout(5000); // 设置读取数据时超时时间, 如果超过5秒, 抛异常
+		conn.connect(); // 开始链接
+		int responseCode = conn.getResponseCode(); // 得到服务器的响应码
+		System.out.println("responseCode:" + responseCode);
+		if (responseCode == 200) {
+			// 得到一个输入流
+			is = conn.getInputStream();
+			// 创建一个bitmap
+			Bitmap bitmap = BitmapFactory.decodeStream(is); // 根据 流数据
+			saveFile(bitmap);// 保存到本地
+		return null;
+		} else {
+			Log.i(TAG, "访问失败: responseCode = " + responseCode);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		if (conn != null) {
+			conn.disconnect(); // 断开连接
+		}
+		if (is != null) {
+			try {
+				is.close();// 关闭流
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	return null;
+}
+<br>
+// 指定bitmap到本地保存的路径：<br>
+public void saveFile(Bitmap bm) {
+	try {
+		String fileName = "roll_list.png";// 文件名
+		String ALBUM_PATH = getApplicationContext().getCacheDir()
+				.getAbsolutePath();
+		File myCaptureFile = new File(ALBUM_PATH + fileName);// data/data/xxx/roll_list.png
+		OutputStream stream = null;
+		CompressFormat format = Bitmap.CompressFormat.PNG;
+		int quality = 100;
+		try {
+			stream = new FileOutputStream(myCaptureFile);
+			bm.compress(format, quality, stream);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+}
+</p>
+</BODY>
+</HTML>

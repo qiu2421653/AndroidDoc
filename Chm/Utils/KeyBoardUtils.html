@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+控制软键盘
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>控制软键盘</B></FONT>&nbsp;</TD>
+</TABLE>
+<p>
+
+	/**
+	 * @param
+	 * @return
+	 * @Description:已经显示，则隐藏，反之则显示
+	 */
+	public static void toggleBoard(Context mcontext) {
+		InputMethodManager imm = (InputMethodManager) mcontext
+				.getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+	}
+
+	/**
+	 * 隐藏输入法
+	 *
+	 * @param activity
+	 */
+	public static void hideKeyboard(Activity activity) {
+		InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+		if (imm.isActive()) {
+			View focusView = activity.getCurrentFocus();
+			if (focusView != null) {
+				imm.hideSoftInputFromWindow(focusView.getWindowToken(), 0);
+			}
+		}
+	}
+
+	/**
+	 * 隐藏输入法
+	 *
+	 * @param
+	 * @return
+	 * @Description:隐藏虚拟键盘
+	 */
+	public static void HideKeyboard(View v) {
+		InputMethodManager imm = (InputMethodManager) v.getContext()
+				.getSystemService(Context.INPUT_METHOD_SERVICE);
+		if (imm.isActive()) {
+			imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+		}
+	}
+
+	/**
+	 * @param
+	 * @return
+	 * @Description: 显示虚拟键盘
+	 */
+	public static void ShowKeyboard(View v) {
+		v.setFocusableInTouchMode(true);
+		v.setFocusable(true);
+		v.requestFocus();
+		InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.showSoftInput(v, InputMethodManager.SHOW_FORCED);
+	}
+</p>
+</BODY>
+</HTML>

@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+配置
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>数据库配置</B></FONT>&nbsp;</TD>
+</TABLE>
+<p><B>build.gradle</B><br/>
+buildscript {
+    repositories {
+//        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.1.1'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+<br/><hr>
+<FONT ><B>app-build.gradle</B></FONT><br/>
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
+
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
+
+    defaultConfig {
+        applicationId "com.time.memory"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 4
+        versionName "1.0.3"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/java-gen']
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
+
+    productFlavors {
+        // 0:官网;1百度;2:华为;3:小米;4:360;5:应用宝;6:91;7:安卓市场
+        owner {
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "0"]
+        }
+        baidu {
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "1"]
+        }
+        huawei {
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "2"]
+        }
+        xiaomi {
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "3"]
+        }
+        x360 {
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "4"]
+        }
+        tencent {
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "5"]
+        }
+        x91 {
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "6"]
+        }
+        android {
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "7"]
+        }
+    }
+}
+apply plugin: 'org.greenrobot.greendao'
+
+greendao {
+    schemaVersion 2
+}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:support-v4:25.0.0'
+    compile 'com.android.support:recyclerview-v7:25.0.0'
+    compile 'org.greenrobot:greendao:3.2.0'
+    // 数据库加密时添加
+    compile 'net.zetetic:android-database-sqlcipher:3.5.1'
+    // 使用数据库升级辅助GreenDaoUpgradeHelper时添加
+    compile 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v1.3.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'cn.finalteam:toolsfinal:1.1.4'
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.google.protobuf:protobuf-java:3.0.2'
+    compile 'com.google.zxing:core:3.2.1'
+    compile 'cn.bingoogolapple:bga-qrcodecore:1.1.5@aar'
+    compile 'cn.bingoogolapple:bga-zxing:1.1.5@aar'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+}
+
+
+
+</p>
+</BODY>
+</HTML>
