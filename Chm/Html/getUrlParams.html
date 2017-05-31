@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name='apple-touch-fullscreen' content='yes'>
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+			<meta charset="UTF-8">
+				<head runat="server">
+<title>最新公告</title>
+<style type="text/css">
+video {
+	width: 100%;
+	height: 100%;
+}
+
+.report_con {
+	padding: 0rem;
+	width: 100%;
+	font-size: 14px;
+	line-height: 25px;
+	background: #FFF;
+}
+
+.report_con img {
+	max-width: 100%;
+	line-height: 25px;
+	margin-bottom: 2px;
+}
+</style>
+<script type="text/javascript">
+	function RequestWebService() {
+		//这是我们在第一步中创建的Web服务的地址
+		//本地服务器
+		var URL = "http://192.168.1.176:8080/iloanWebService/noticeApi/";
+		//正式服务器
+		//var URL = "http://192.168.1.176:8080/iloanWebService/noticeApi/";
+		//测试服务器
+		//var URL = "http://114.215.83.2/iloanWebService/services/Service";
+		var Request = new Object();
+		Request = GetRequest();
+		var newsId = Request["id"];
+		//alert("newsId:" + newsId);
+		//在这处我们拼接
+		var data;
+		data = '<?xml version="1.0" encoding="utf-8"?>';
+		data = data
+				+ '<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">';
+		data = data + '<soap12:Body>';
+		data = data
+				+ '<getNewsInfo xmlns="http://impl.service.iloan.yingCanTechnology.com">';
+		data = data + '<newsId>' + newsId + '</newsId>';
+		data = data + '</getNewsInfo>';
+		data = data + '</soap12:Body>';
+		data = data + '</soap12:Envelope>';
+		var xmlHttp;
+		if (window.ActiveXObject) {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		} else if (document.implementation
+				&& document.implementation.createDocument) {
+			xmlhttp = new window.XMLHttpRequest();
+		} else {
+			xmlhttp = null;
+		}
+		//创建异步对象
+		xmlhttp.open("POST", URL + '/getNewsInfo.htm', false);
+		//xmlhttp.setRequestHeader("Content-Type", "text/xml; charset=utf-8");
+		xmlhttp.setRequestHeader("Content-Type",
+				"application/x-www-form-urlencoded");
+		xmlhttp.send("newsId=" + newsId);
+		var theRequest = xmlhttp.responseText;
+
+		return theRequest;
+		//document.getElementById("data").innerHTML = xmlhttp.responseText;
+	}
+
+	function GetRequest() {
+		var url = location.search; //获取url中"?"符后的字串
+		var theRequest = new Object();
+		if (url.indexOf("?") != -1) {
+			var str = url.substr(1);
+			strs = str.split("&");
+			for (var i = 0; i < strs.length; i++) {
+				theRequest[strs[i].split("=")[0]] = strs[i].split("=")[1];
+			}
+		}
+		return theRequest;
+	}
+
+	function ShowData(data) {
+		var obj = eval("(" + data + ")");
+		document.getElementById("articleTitle").innerHTML = obj["TITLE"];
+		document.getElementById("lblPublishTime").innerHTML = obj["PUBLISH_DATE"];
+		document.getElementById("content").innerHTML = html_decode(obj["SUMMARY"]);
+	}
+
+	function html_decode(str) {
+		console.log(str);
+		var s = "";
+		if (str.length == 0)
+			return "";
+		s = str.replace(/&amp;/g, "&");
+		s = s.replace(/&lt;/g, "<");
+		s = s.replace(/&gt;/g, ">");
+		s = s.replace(/&#39;/g, "\'");
+		s = s.replace(/&quot;/g, "\"");
+		s = s.replace(/<br\/>/g, "\n");
+		return s;
+	}
+</script>
+
+				</head>
+				<body>
+					<div
+						style="text-align: center; margin-bottom: 10px; margin-top: 10px;">
+						<span id="articleTitle"
+							style="font-size: 18px; color: #666666; font-family: Microsoft YaHei; text-align: center; margin-bottom: 10px;"></span>
+					</div>
+					<div class="artiInfo"
+						style="font-size: 9px; color: #666666; font-family: Microsoft YaHei; text-align: center; margin-bottom: 10px;">
+						<!-- 作者：<span id="lblAuthor"></span>  &nbsp; -->
+						发表时间：<span id="lblPublishTime"></span>
+					</div>
+					<div class="report_con">
+						<p id="content"
+							style="font-size: 9px; color: #666666; font-family: Microsoft YaHei;"></p>
+					</div>
+
+					<script type="text/javascript">
+						var theRequest = RequestWebService();
+					
+						if (window.ActiveXObject) {
+	
+							//xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+							//xmlDoc.async = "false";
+							//xmlDoc.loadXML(theRequest);
+							//var resultStr = string1.substr(index + 11, end
+							//		- index - 11);
+							ShowData(theRequest);
+						} else if (document.implementation
+								&& document.implementation.createDocument) {
+						
+							//var parser = new DOMParser();
+							//var xmldom = parser.parseFromString(theRequest,
+							//		"text/xml");
+							//var serializer = new XMLSerializer();
+							//var string1 = serializer.serializeToString(xmldom);
+							//var index = string1.indexOf("<ns:return>");
+							//var end = string1.indexOf("</ns:return>");
+							//var resultStr = string1.substr(index + 11, end
+							//		- index - 11);
+
+							ShowData(theRequest);
+						}
+					</script>
+
+				</body>
+</html>

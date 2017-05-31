@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+AnimatorSet
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>AnimatorSet</B></FONT>&nbsp;</TD>
+</TABLE>
+<p>
+		AnimatorSet animatorSet = new AnimatorSet();
+
+		ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(holder.btnLike, "rotation", 0f, 360f);
+		rotationAnim.setDuration(300);
+		rotationAnim.setInterpolator(ACCELERATE_INTERPOLATOR);
+
+		ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(holder.btnLike, "scaleX", 0.2f, 1f);
+		bounceAnimX.setDuration(300);
+		bounceAnimX.setInterpolator(OVERSHOOT_INTERPOLATOR);
+
+		ObjectAnimator bounceAnimY = ObjectAnimator.ofFloat(holder.btnLike, "scaleY", 0.2f, 1f);
+		bounceAnimY.setDuration(300);
+		bounceAnimY.setInterpolator(OVERSHOOT_INTERPOLATOR);
+		bounceAnimY.addListener(new AnimatorListenerAdapter() {
+			@Override
+			public void onAnimationStart(Animator animation) {
+				holder.btnLike.setImageResource(R.drawable.ic_heart_red);
+			}
+
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				heartAnimationsMap.remove(holder);
+				dispatchChangeFinishedIfAllAnimationsEnded(holder);
+			}
+		});
+
+		animatorSet.play(bounceAnimX).with(bounceAnimY).after(rotationAnim);
+		animatorSet.start();
+</p>
+</BODY>
+</HTML>

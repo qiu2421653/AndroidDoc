@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+Build配置 
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>Build配置 </B></FONT>&nbsp;</TD>
+</TABLE>
+<p>
+1.多渠道打包
+<meta-data
+    android:name="APP_CHANNEL"
+    android:value="${APP_CHANNEL_VALUE}">
+	
+android {
+    productFlavors {
+        // 0:官网;1百度;2:华为;3:小米;4:360;5:应用宝;6:91;7:安卓市场
+        owner {
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "0"]
+        }
+        baidu {
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "1"]
+        }
+        huawei {
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "2"]
+        }
+        xiaomi {
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "3"]
+        }
+        x360 {
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "4"]
+        }
+        tencent {
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "5"]
+        }
+        x91 {
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "6"]
+        }
+        android {
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "7"]
+        }
+    }
+}
+
+</p>
+</BODY>
+</HTML>

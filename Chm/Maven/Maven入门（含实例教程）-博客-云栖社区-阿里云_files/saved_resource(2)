@@ -1,0 +1,37 @@
+var aliyun_global_observer = {
+    _callbacks: {},
+    register: function (name, fn, context) {
+        if (!name) {
+            return;
+        }
+
+        fn = fn || function () {};
+        var list;
+        if (!aliyun_global_observer._callbacks[name]) {
+            list = aliyun_global_observer._callbacks[name] = [];
+        }
+        if (list && Object.prototype.toString.call(list) == "[object Array]") {
+            list.push({
+                fn: fn,
+                context: context
+            });
+        }
+    },
+    trigger: function (name) {
+        var lists = [];
+        if (!name) { //触发所有
+            for (var key in aliyun_global_observer._callbacks) {
+                lists.concat(aliyun_global_observer._callbacks[key]);
+            }
+        } else { //触发指定
+            lists = aliyun_global_observer._callbacks[name];
+        }
+        if (!lists) return;
+        for (var i = 0, len = lists.length; i < len; i++) {
+            var list = lists[i];
+            var _fn = list.fn;
+            return _fn.apply(list.context || this, [].slice.call(arguments, 1));
+        }
+    }
+};
+

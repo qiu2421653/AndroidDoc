@@ -18,6 +18,9 @@ PS：为了避免注册时弄错签名，建议直接用打包出来的apk查看签名，具体如下： <br>
 2） 进入解压后的META-INF目录，该目录下会存在文件CERT.RSA <br>
 3） 在该目录下打开cmd，输入命令 ：keytool -printcert -file CERT.RSA <br>
 这里将会显示出MD5和SHA1签名。
+
+1、查看 keystore  
+keytool -list -keystore debug.keystore 
 </p>
 </BODY>
 </HTML>

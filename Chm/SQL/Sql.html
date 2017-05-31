@@ -1,0 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+常用sql
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>常用sql</B></FONT>&nbsp;</TD>
+</TABLE>
+<p>
+1.两表关联，并且手机号不为空，token不为空  ->>  '!='与'<>'是相等的,都是不等于的意思
+SELECT u.mobile,u.USER_PWD,u.OID_USER_ID ,t.token  from  `USER` u
+Join USER_TOKEN t
+on u.OID_USER_ID=t.OID_USER_ID
+where u.mobile != ''
+and TOKEN <>''
+
+</p>
+</BODY>
+</HTML>

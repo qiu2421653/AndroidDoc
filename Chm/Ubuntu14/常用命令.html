@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+ubuntu 常用命令
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>ubuntu 常用命令 </B></FONT>&nbsp;</TD>
+</TABLE>
+<p>
+1.显示占用的端口
+netstat -ltnup
+2.查看tomcat 有无启动
+ps -ef|grep java
+3.杀死进程1000
+kill 1000
+kill -9 1000
+4.停止防火墙服务
+service iptables stop
+5.-bash: wget: command not found 解决方法
+最简单的方法：
+[root@DB1 ~]# yum -y install wget
+安装完毕即可。
+6.切换管理员
+sudo -i
+7.显示磁盘使用情况
+df -hl
+8.root用户下赋值权限
+chomd 777
+
+</p>
+</BODY>
+</HTML>
