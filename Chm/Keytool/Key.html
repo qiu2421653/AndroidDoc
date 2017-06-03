@@ -1,0 +1,41 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+常用Keytool 命令
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>常用Keytool 命令</B></FONT>&nbsp;</TD>
+</TABLE>
+<p>Keytool 常用命令：</p>
+检查一个keystore
+
+keytool -list -v -keystore c:\server.jks 
+ 
+检查一个keystore的内容
+
+keytool -list -v -keystore c:\server.jks 
+ 
+添加一个信任根证书到keystore文件
+
+keytool -import -alias newroot -file root.cer -keystore server.jks
+
+导入CA签署好的证书 
+
+keytool -import -keystore c:\server.jks -alias tomcat -file c:\cert.txt 
+
+从 KEYSTORE中导出一个证书文件
+
+keytool -export -alias myssl -keystore server.jks -rfc -file server.cer 
+*备注： "-rfc" 表示以base64输出文件，否则以二进制输出。
+
+从KEYSTORE中删除一个证书
+
+keytool -delete -keystore server.jks -alias tomcat 
+*备注：删除了别名为tomcat的证书
+</BODY>
+</HTML>
