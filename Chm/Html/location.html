@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" href="css/postsorf/content.css" />
+<script src="js/postsorf/jquery-1.7.1.min.js" type="text/javascript"
+	charset="utf-8"></script>
+<script src="js/postsorf/jquery-ui-1.8.18.min.js"
+	type="text/javascript" charset="utf-8"></script>
+<script src="js/postsorf/all.js" type="text/javascript"
+	charset="utf-8"></script>
+<title>操作成功</title>
+<style>
+.white_bg {
+	background: #fff !important;
+}
+
+.mt60 {
+	margin-top: 60px !important;
+}
+</style>
+</head>
+
+<body class="white_bg">	
+			
+		
+	<div class="form_element">
+		<a onclick="registerApp()" class="btn btn_enter"
+			style="background-color: #FB9240" href="#">注册</a>
+	</div>
+		
+
+	<script language="javascript">
+		function registerApp() {						
+                window.location.href = 'batong://www.batongjinfu.com?action=register';              
+            }  
+		function openApp() {						
+                window.location.href = 'batong://www.batongjinfu.com?action=invest&data=1234567890';              
+           } 
+	</script>
+	
+	
+	
+    <activity
+        android:name=".SplashActivity"
+        android:label="@string/app_name"
+        android:screenOrientation="portrait"
+        android:theme="@style/SplashTheme">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+            <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter>
+            <action android:name="android.intent.action.VIEW"/>
+            <category android:name="android.intent.category.BROWSABLE"/>
+            <category android:name="android.intent.category.DEFAULT"/>
+            <data
+                android:host="www.batongjinfu.com"
+                android:scheme="batong"/>
+            </intent-filter>
+        </activity>
+		
+		
+		Uri	uridata = this.getIntent().getData();
+		String action = uridata.getQueryParameter("action");
+		String mydata = uridata.getQueryParameter("data");
+	
+</body>
+</html>
