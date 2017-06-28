@@ -12,13 +12,18 @@
 <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>读取图片</B></FONT>&nbsp;</TD>
 </TABLE>
 <p>
-public static Bitmap getImageFromAssets(Context context, String fileName)
+public static Bitmap getImageFromAssets(Context context)
 {
 	 Bitmap image = null;
      AssetManager am = context.getResources().getAssets();
         try
         {
-           InputStream is = am.open(fileName);
+		  //AndroidStudio方式
+		  InputStream is = getAssets().open("pic.jpg");	
+		  InputStream is = getClassLoader().getResourceAsStream("assets/pic.jpg")
+		  
+		  //Eclipse方式
+           InputStream is = am.open("file:///android_asset/pic.jpg");
            image = BitmapFactory.decodeStream(is);
            is.close();
         }
