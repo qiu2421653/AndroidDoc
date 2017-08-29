@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<TITLE>
+Æô¶¯±ðµÄÓ¦ÓÃ
+</TITLE>
+<META NAME="date" CONTENT="2016-12-26">
+</HEAD>
+<BODY BGCOLOR="white";">
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">   <FONT CLASS="NavBarFont1">&nbsp;<B>Æô¶¯±ðµÄÓ¦ÓÃ</B></FONT>&nbsp;</TD>
+</TABLE>
+<p>
+			/**
+	 * 本地打开pdf（简单粗暴第三方）
+	 * @param context
+	 * @param path
+	 */
+	public static void openPdfByLoc(Context context, String path) {
+		Intent i = new Intent(Intent.ACTION_VIEW);
+		i.addCategory(Intent.CATEGORY_DEFAULT);
+		i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		Uri uri = Uri.fromFile(new File(path));
+		i.setDataAndType(uri, "application/pdf");
+		context.startActivity(i);
+	}
+
+／**
+  *本地打开txt pdf mp4....
+  *／
+	private void browseDocument(String fileName, String path) {
+		try {
+			String ext = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
+			MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+			String mime = mimeTypeMap.getMimeTypeFromExtension(ext);
+			File file = new File(path);
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+
+			//设置intent的data和Type属性。android 7.0以上crash,改用provider
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+				Uri fileUri = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".provider", file);
+				intent.setDataAndType(fileUri, mime);
+				grantUriPermission(mContext, fileUri, intent);
+			} else {
+				intent.setDataAndType(Uri.fromFile(file), mime);
+			}
+			//跳转
+			mContext.startActivity(intent);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Toast.makeText(mContext, R.string.file_not_support_hint, Toast.LENGTH_SHORT).show();
+		}
+	}
+</p>
+</BODY>
+</HTML>
