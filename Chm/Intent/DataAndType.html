@@ -3,7 +3,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=gb2312">
 <TITLE>
-Æô¶¯±ðµÄÓ¦ÓÃ
+Android 7.0以上
 </TITLE>
 <META NAME="date" CONTENT="2016-12-26">
 </HEAD>
@@ -50,6 +50,14 @@
 		} catch (Exception e) {
 			e.printStackTrace();
 			Toast.makeText(mContext, R.string.file_not_support_hint, Toast.LENGTH_SHORT).show();
+		}
+	}
+	
+	private void grantUriPermission(Context context, Uri fileUri, Intent intent) {
+		List<ResolveInfo> resInfoList = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+		for (ResolveInfo resolveInfo : resInfoList) {
+			String packageName = resolveInfo.activityInfo.packageName;
+			context.grantUriPermission(packageName, fileUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
 		}
 	}
 </p>
